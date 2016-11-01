@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="MNIST dataset reader">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Perceptron">
+      <UniqueIdentifier>{cdd52217-080c-49a4-9bc5-0d9fe1ee65d2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="mnist_dataset_reader.cpp">
+      <Filter>MNIST dataset reader</Filter>
+    </ClCompile>
+    <ClCompile Include="perceptron_learning.cpp" />
+    <ClCompile Include="perceptron.cpp">
+      <Filter>Perceptron</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mnist_dataset_reader.h">
+      <Filter>MNIST dataset reader</Filter>
+    </ClInclude>
+    <ClInclude Include="perceptron.h">
+      <Filter>Perceptron</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
