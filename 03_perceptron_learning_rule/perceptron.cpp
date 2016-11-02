@@ -60,6 +60,14 @@ void Perceptron::compute_outputs()
          sum += contrib;
       }
 
+      if (USE_BINARY_NEURON_OUTPUTS)
+      {
+         if (sum>0)
+            sum = 1.0;
+         else
+            sum = 0.0;
+      }
+
       // 2. store output value
       output_values[out] = sum;
    }
@@ -104,6 +112,7 @@ void Perceptron::show_debug_info()
 void Perceptron::learn(float* teacher_vector)
 {
    // for all output neurons do the training independently ...
+   float minweight,maxweight;
    for (int o=0; o<nr_outputs; o++)
    {
       // actual output of neuron?
@@ -137,9 +146,16 @@ void Perceptron::learn(float* teacher_vector)
             weights[o][i] = 1.0f;
          */
 
+         // keep track of minimum & maximum weight values
+         if (((o==0) && (i==0)) || (weights[o][i]<minweight))
+            minweight=weights[o][i];
+         if (((o == 0) && (i == 0)) || (weights[o][i]>maxweight))
+            maxweight = weights[o][i];
 
       } // for (all inputs i)
 
    } // for (all output neurons o)
+
+   //printf("\nminweight=%.5f | maxweight=%.5f", minweight,maxweight);
 
 } // learn

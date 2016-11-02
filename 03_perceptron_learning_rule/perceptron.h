@@ -6,6 +6,8 @@
 ///
 /// by Prof. Dr.-Ing. Jürgen Brauer, www.juergenbrauer.org
 
+#define USE_BINARY_NEURON_OUTPUTS 0
+
 class Perceptron
 {
    public:

@@ -32,13 +32,16 @@
 using namespace cv;
 using namespace std;
 
-#define USE_FILTER_BANK 1
+#define USE_FILTER_BANK 0
+#define USE_VALUES_FROM_RANGE_0_TO_255 0
+
 int NR_INPUTS;  // depends whether we use the filter bank as input or not
 
 #define LEARNRATE0 0.00001f
 #define LEARNRATE1 0.0001f
 #define LEARNRATE2 0.001f
 #define LEARNRATE3 0.01f
+#define LEARNRATE4 0.1f
 
 Perceptron* my_pct;
 mnist_dataset_reader* my_reader;
@@ -65,7 +68,13 @@ void feed_perceptron(int img_idx, unsigned char** img_set)
       for (int i = 0; i < 28 * 28; i++)
       {
          // set neuron output according to input image pixel value
-         float gray_value = (float)input_img[i] / 255.0f; // will be in [0,1]
+         float gray_value;
+         if (USE_VALUES_FROM_RANGE_0_TO_255)
+            gray_value = (float)input_img[i];          // will be in [0,255]
+         else
+            gray_value = (float)input_img[i] / 255.0f; // will be in [0,1]
+         
+
          my_pct->input_values[i] = gray_value;
 
       } // for (all input neurons to feed with values)
@@ -264,7 +273,7 @@ int main()
       int nr_filters = filter_bank.size();
       NR_INPUTS = nr_filters * 28 * 28;
    }
-   my_pct = new Perceptron(NR_INPUTS, 10, LEARNRATE0);
+   my_pct = new Perceptron(NR_INPUTS, 10, LEARNRATE1);
    
 
    // 5. show classification rate on MNIST test data set (10.000 images)
@@ -293,6 +302,8 @@ int main()
       
       // 6.3 forward pass
       my_pct->compute_outputs();
+      //my_pct->show_debug_info();
+      //_getch();
 
       // 6.4 prepare teacher vector and do a single Perceptron learning step
       int ground_truth_label = train_labels[rnd_idx];
