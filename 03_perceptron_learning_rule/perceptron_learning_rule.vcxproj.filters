@@ -14,20 +14,20 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="mnist_dataset_reader.cpp">
-      <Filter>MNIST dataset reader</Filter>
-    </ClCompile>
     <ClCompile Include="perceptron_learning.cpp" />
     <ClCompile Include="perceptron.cpp">
       <Filter>Perceptron</Filter>
     </ClCompile>
+    <ClCompile Include="..\MNIST\mnist_dataset_reader.cpp">
+      <Filter>MNIST dataset reader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="mnist_dataset_reader.h">
-      <Filter>MNIST dataset reader</Filter>
-    </ClInclude>
     <ClInclude Include="perceptron.h">
       <Filter>Perceptron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MNIST\mnist_dataset_reader.h">
+      <Filter>MNIST dataset reader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
