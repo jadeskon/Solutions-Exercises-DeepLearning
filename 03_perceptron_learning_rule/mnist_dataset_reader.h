@@ -18,6 +18,12 @@
 
 #pragma once
 
+// Microsoft compiler specific disabling of warnings
+// to say sprintf() usage is ok.
+// Alternative: use sprintf_s(), the secure version
+// of sprint()
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -55,9 +61,9 @@ class mnist_dataset_reader
 
   private:
 
-    unsigned char**         mnist_dataset_reader::read_mnist_images(string full_path, int& number_of_images, int& image_size); // for reading in images
+    unsigned char**         read_mnist_images(string full_path, int& number_of_images, int& image_size); // for reading in images
 
-    unsigned char*          mnist_dataset_reader::read_mnist_labels(string full_path, int& number_of_labels);                  // for reading in ground truth image labels
+    unsigned char*          read_mnist_labels(string full_path, int& number_of_labels);                  // for reading in ground truth image labels
 
 
     string                  path_to_extracted_mnist_files; // where you have extracted the files 

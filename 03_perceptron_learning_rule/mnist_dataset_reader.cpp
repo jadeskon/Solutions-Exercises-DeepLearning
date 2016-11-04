@@ -2,6 +2,8 @@
 #include <conio.h> // for _getch()
 
 
+
+
 ///
 /// read in all the training / test images and their corresponding ground truth labels
 ///
@@ -211,7 +213,7 @@ Mat* mnist_dataset_reader::get_board_of_sample_images(unsigned char** images, un
 
     // draw image label to the right of image of digit on board as well
     char txt[10];
-    sprintf_s(txt, "%d", labels[rnd_idx]);
+    sprintf(txt, "%d", labels[rnd_idx]);
     putText(*visu,
             txt,
             Point(x, y+20),
