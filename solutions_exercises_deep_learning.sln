@@ -9,6 +9,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "02_mnist", "02_mnist\mnist.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03_perceptron_learning_rule", "03_perceptron_learning_rule\perceptron_learning_rule.vcxproj", "{2ACCFF1D-0CBD-4F20-9747-B92473E07A0A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_multi_layer_perceptron", "04_multi_layer_perceptron\04_multi_layer_perceptron.vcxproj", "{7988B8CB-D349-483A-8780-84FE52294521}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05_backpropagation", "05_backpropagation\05_backpropagation.vcxproj", "{868FC123-AD3A-4AE8-ABCB-F0C027AC483B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +45,22 @@ Global
 		{2ACCFF1D-0CBD-4F20-9747-B92473E07A0A}.Release|x64.Build.0 = Release|x64
 		{2ACCFF1D-0CBD-4F20-9747-B92473E07A0A}.Release|x86.ActiveCfg = Release|Win32
 		{2ACCFF1D-0CBD-4F20-9747-B92473E07A0A}.Release|x86.Build.0 = Release|Win32
+		{7988B8CB-D349-483A-8780-84FE52294521}.Debug|x64.ActiveCfg = Debug|x64
+		{7988B8CB-D349-483A-8780-84FE52294521}.Debug|x64.Build.0 = Debug|x64
+		{7988B8CB-D349-483A-8780-84FE52294521}.Debug|x86.ActiveCfg = Debug|Win32
+		{7988B8CB-D349-483A-8780-84FE52294521}.Debug|x86.Build.0 = Debug|Win32
+		{7988B8CB-D349-483A-8780-84FE52294521}.Release|x64.ActiveCfg = Release|x64
+		{7988B8CB-D349-483A-8780-84FE52294521}.Release|x64.Build.0 = Release|x64
+		{7988B8CB-D349-483A-8780-84FE52294521}.Release|x86.ActiveCfg = Release|Win32
+		{7988B8CB-D349-483A-8780-84FE52294521}.Release|x86.Build.0 = Release|Win32
+		{868FC123-AD3A-4AE8-ABCB-F0C027AC483B}.Debug|x64.ActiveCfg = Debug|x64
+		{868FC123-AD3A-4AE8-ABCB-F0C027AC483B}.Debug|x64.Build.0 = Debug|x64
+		{868FC123-AD3A-4AE8-ABCB-F0C027AC483B}.Debug|x86.ActiveCfg = Debug|Win32
+		{868FC123-AD3A-4AE8-ABCB-F0C027AC483B}.Debug|x86.Build.0 = Debug|Win32
+		{868FC123-AD3A-4AE8-ABCB-F0C027AC483B}.Release|x64.ActiveCfg = Release|x64
+		{868FC123-AD3A-4AE8-ABCB-F0C027AC483B}.Release|x64.Build.0 = Release|x64
+		{868FC123-AD3A-4AE8-ABCB-F0C027AC483B}.Release|x86.ActiveCfg = Release|Win32
+		{868FC123-AD3A-4AE8-ABCB-F0C027AC483B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

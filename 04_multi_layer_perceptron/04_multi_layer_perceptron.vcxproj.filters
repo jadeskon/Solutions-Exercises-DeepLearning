@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="MNIST dataset reader">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="MLP version #1: MLP OOP">
+      <UniqueIdentifier>{a7e3a339-c4b3-4734-8f43-b4b6dfb90ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MLP version#2: MLP FAST">
+      <UniqueIdentifier>{d779913e-bbac-4f2a-8a33-dcb2a03d23ff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="mlp_test.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MNIST\mnist_dataset_reader.cpp">
+      <Filter>MNIST dataset reader</Filter>
+    </ClCompile>
+    <ClCompile Include="mlp_oop\neuron.cpp">
+      <Filter>MLP version #1: MLP OOP</Filter>
+    </ClCompile>
+    <ClCompile Include="mlp_oop\neuron_connection.cpp">
+      <Filter>MLP version #1: MLP OOP</Filter>
+    </ClCompile>
+    <ClCompile Include="mlp_oop\neuron_layer.cpp">
+      <Filter>MLP version #1: MLP OOP</Filter>
+    </ClCompile>
+    <ClCompile Include="mlp_oop\mlp_oop.cpp">
+      <Filter>MLP version #1: MLP OOP</Filter>
+    </ClCompile>
+    <ClCompile Include="mlp_fast\mlp_fast.cpp">
+      <Filter>MLP version#2: MLP FAST</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\MNIST\mnist_dataset_reader.h">
+      <Filter>MNIST dataset reader</Filter>
+    </ClInclude>
+    <ClInclude Include="mlp_oop\neuron.h">
+      <Filter>MLP version #1: MLP OOP</Filter>
+    </ClInclude>
+    <ClInclude Include="mlp_oop\neuron_connection.h">
+      <Filter>MLP version #1: MLP OOP</Filter>
+    </ClInclude>
+    <ClInclude Include="mlp_oop\neuron_layer.h">
+      <Filter>MLP version #1: MLP OOP</Filter>
+    </ClInclude>
+    <ClInclude Include="mlp_oop\mlp_oop.h">
+      <Filter>MLP version #1: MLP OOP</Filter>
+    </ClInclude>
+    <ClInclude Include="mlp_fast\mlp_fast.h">
+      <Filter>MLP version#2: MLP FAST</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
