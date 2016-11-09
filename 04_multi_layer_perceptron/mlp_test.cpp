@@ -155,8 +155,7 @@ int main()
 
 
    // 4. if both speed tests were executed,
-   //    we can compute how much fast mlp_fast is compared to
-   //    mlp_oop
+   //    we can compute how much faster mlp_fast is compared to mlp_oop
    if (DO_SPEED_TEST_MLP_OOP && DO_SPEED_TEST_MLP_FAST)
    {
       float ratio = 1.0f / ((float)elapsedtime_mlp_fast / (float)elapsedtime_mlp_oop);
