@@ -39,7 +39,7 @@ mlp_fast::mlp_fast(int nr_layers, ...)
    for (int l = 0; l < nr_layers-1; l++)
    {
       int nr_neurons_this_layer = nr_neurons_per_layer[l];
-      int nr_neurons_next_layer = nr_neurons_per_layer[l];
+      int nr_neurons_next_layer = nr_neurons_per_layer[l+1];
       weights[l] = new float*[nr_neurons_this_layer];
 
       for (int i = 0; i < nr_neurons_this_layer; i++)

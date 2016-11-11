@@ -31,7 +31,7 @@ using namespace cv;
 using namespace std;
 
 
-#define NR_OF_IMAGES_TO_TRAIN 20000
+#define NR_OF_IMAGES_TO_TRAIN 10000
 #define DO_SPEED_TEST_MLP_OOP 1
 #define DO_SPEED_TEST_MLP_FAST 1
 
