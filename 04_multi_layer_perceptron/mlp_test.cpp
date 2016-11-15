@@ -54,7 +54,7 @@ int main()
       my_reader->get_train_labels(),
       60000);
    imshow("Some sample MNIST training images", *samples_as_image);
-   cv::waitKey(100);
+   cv::waitKey(0);
 
 
    // 3. speed test of two MLP implementations   
