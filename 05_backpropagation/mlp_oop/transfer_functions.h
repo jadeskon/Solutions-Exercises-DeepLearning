@@ -18,13 +18,16 @@ float identity(float x);
 
 float identity_derivative(float x);
 
+
 float logistic_func(float x);
 
 float logistic_func_derived(float x);
 
+
 float tangens_hyperbolicus(float x);
 
 float tangens_hyperbolicus_derived(float x);
+
 
 float relu(float x);
 

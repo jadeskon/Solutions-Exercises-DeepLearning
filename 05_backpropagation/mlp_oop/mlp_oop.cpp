@@ -238,7 +238,7 @@ void mlp_oop::show_min_max_values_per_layer()
 
 void mlp_oop::unit_test_identity()
 {
-   #define TEST_WITH_UNIT_VECTORS 1
+   #define TEST_WITH_UNIT_VECTORS 0
    
    printf("\n\n");
    printf("Unit Test 'Identity'\n");
@@ -365,10 +365,10 @@ void mlp_oop::unit_test_identity()
 /// learns something.
 ///
 /// There are two inputs x0,x1.
-/// There are three outputs y0,y1,y2,y3
+/// There are three outputs y0,y1,y2,y3,y4
 /// The net shall learn the functions y0=x0+x1, y1=x0-x1, y2=3*x0, y3=sin(x0), y4=x0*x1
 ///
-/// Play around with!
+/// Try out different hyperparameters!
 ///  - number of learn steps 10000, 1000000
 ///  - learn rates 0.001f, 0.00001f
 ///  - different transfer function types
@@ -386,8 +386,8 @@ void mlp_oop::unit_test_regression()
    // 1. generate a MLP
    set_learn_rate(0.001f);
    add_neuron_layer(0,   2,  true,  transferfunc_type::tf_type_identity);
-   add_neuron_layer(1,  20,  true,  transferfunc_type::tf_type_relu);
-   add_neuron_layer(2,   5, false,  transferfunc_type::tf_type_identity);
+   add_neuron_layer(1,   5,  true,  transferfunc_type::tf_type_relu);
+   add_neuron_layer(4,   5, false,  transferfunc_type::tf_type_identity);
    show_mlp_structure_information();
    //this->save_mlp_visualization_as_image("initial graph");
 
@@ -494,8 +494,8 @@ void mlp_oop::unit_test_regression()
 
       // 5.4 show current values of input and output neurons
       //     in order to see whether the MLP really learned the XOR function
-      show_output_values_of_neurons_from_layer(0);
-      show_output_values_of_neurons_from_layer(1);
+      //show_output_values_of_neurons_from_layer(0);
+      //show_output_values_of_neurons_from_layer(1);
       show_output_values_of_neurons_from_layer(2);
       //show_output_values_of_neurons_from_layer(3);
       //show_output_values_of_neurons_from_layer(4);
@@ -525,300 +525,6 @@ void mlp_oop::unit_test_regression()
    _getch();
 
 } // unit_test_regression
-
-
-/*
-///
-/// NOTE!!! NOT YET FINISHED!
-///
-/// I have implemented a MLP with Backpropagation! Yes!!!
-/// But does it work correctly?
-/// Here is a simple unit test to check whether the MLP really
-/// learns something.
-/// 
-/// We will generate a 8->3->8 MLP.
-/// Then the task of the MLP is to learn to map input vectors
-/// of the form x=(x1,x2,x3,x4,x5,x6,x7,x8) where only of the
-/// x_i is 1.0 and all others are 0.0 to the output vector y=x.
-/// Since there are only 3 neurons in the hidden layer, the
-/// MLP needs to represent x by the hidden neurons using some
-/// appropriate distributed encoding using the 3 hidden neurons!
-///
-
-void mlp_oop::unit_test_data_compression()
-{
-   printf("\n\n");
-   printf("Unit Test 'Data compression'\n");
-
-   // 1. generate a 8-3-8 MLP
-   set_learn_rate(0.1f);
-   add_neuron_layer(0, 8, true, transferfunc_type::tf_type_identity);
-   add_neuron_layer(1, 3, true, transferfunc_type::tf_type_identity);
-   add_neuron_layer(2, 8, false, transferfunc_type::tf_type_identity);
-   show_mlp_structure_information();
-
-
-   // 2. train the network
-   const int NR_TRAIN_STEPS = 10000000;
-   float x[8];
-   printf("Training with %d training pairs...\n", NR_TRAIN_STEPS);
-   for (int trainstep = 0; trainstep < NR_TRAIN_STEPS; trainstep++)
-   {
-      // 2.1 prepare training pair (x,x)
-      int rnd_idx = rand() % 8; // will be in {0,...,7}
-      for (int i = 0; i < 8; i++)
-      {
-         if (i == rnd_idx)
-            x[i] = 1.0f;
-         else
-            x[i] = 0.0f;
-      }
-
-      // 2.2 feed the MLP with the input vector
-      for (int i = 0; i < 8; i++)
-         this->all_layers[0]->all_neurons_in_this_layer[i]->out = x[i];
-
-      // 2.3 forward pass
-      this->forward_pass();
-
-      // 2.4 backprop pass
-      this->backpropagation_compute_error_signals(x);
-      this->backpropagation_change_weights();
-
-      if ((0) && (trainstep % 10000 == 0))
-      {
-         this->show_min_max_values_per_layer();
-      }
-
-   } // for (all training vectors)
-   printf("Training finished.\n");
-
-
-   // 3. show learned values of all incoming weights of hidden & output neurons
-   this->all_layers[1]->show_incoming_weights(); // show incoming weights of hidden neurons
-   this->all_layers[2]->show_incoming_weights(); // show incoming weights of output neurons
-
-
-                                                 // 4. test the network
-   for (int test = 0; test < 8; test++)
-   {
-      printf("\nPress a key to test the 8-3-8 MLP with a input vector x\n");
-      _getch();
-
-      // 3.1 prepare test input vector x such that in the i-th test
-      //     only the i-th argument of the 8D input vector x is set to 1.0
-      //     and all other arguments are set to 0.0
-      for (int i = 0; i < 8; i++)
-      {
-         if (i == test)
-            x[i] = 1.0f;
-         else
-            x[i] = 0.0f;
-      }
-
-      // 3.2 feed the MLP with the input vector
-      for (int i = 0; i < 8; i++)
-         this->all_layers[0]->all_neurons_in_this_layer[i]->out = x[i];
-
-      // 3.3 forward pass
-      this->forward_pass();
-
-      // 3.4 show current values of input and output neurons
-      //     in order to see whether the MLP really learned
-      //     to map input vectors x
-      //     to the same output vectors x
-      //     by the help of the hidden layer neurons
-      show_output_values_of_neurons_from_layer(0);
-      show_output_values_of_neurons_from_layer(1);
-      show_output_values_of_neurons_from_layer(2);
-
-   } // for (all tests)
-
-   printf("\n\nUnit Test 'Data compression' finished.\n");
-   printf("Press a key.\n");
-   _getch();
-
-} // unit_test_data_compression
-
-
-///
-/// NOTE!!! NOT YET FINISHED!
-///
-/// I have implemented a MLP with Backpropagation! Yes!!!
-/// But does it work correctly?
-/// Here is a simple unit test to check whether the MLP really
-/// learns something.
-/// 
-/// We will generate a circle datset.
-/// Input vectors will be 2D vectors v=(x,y).
-/// Output vectors will be 2D vectors out=(o1,o2)
-/// If the (x,y) coordinate is within the unit circle,
-/// we want to classify the vector v as belonging to class
-/// 1 --> out shall then be (1,0)
-/// If the (x,y) coordinate is outside of the unit circle,
-/// we want to classify the vector v as belonging to class
-/// 0 --> out shall then be (0,1)
-///
-
-void mlp_oop::unit_test_classification_circle_dataset()
-{
-   printf("\n\n");
-   printf("Unit Test 'Classification circle dataset'\n");
-
-   // 1. generate a multi-layer perceptron
-   set_learn_rate(0.0001f);
-   add_neuron_layer(0, 2, true,  transferfunc_type::tf_type_identity);
-   add_neuron_layer(1, 10, true, transferfunc_type::tf_type_identity);
-   add_neuron_layer(2, 2, false, transferfunc_type::tf_type_identity);
-   show_mlp_structure_information();
-
-   const int NR_TRAIN_STEPS = 10000;
-
- 
-
-
-   // 2. generate training data
-   const int NR_TRAINING_PAIRS = 10000;
-   float training_data[NR_TRAINING_PAIRS][2][2];
-   for (int i = 0; i < NR_TRAINING_PAIRS; i++)
-   {
-      float r,theta;
-      theta = ((float)(rand() % 1001) / 1000.0f)*2.0f*(float)M_PI;
-      if (i<NR_TRAINING_PAIRS/2)
-      {
-         r = ((float)(rand() % 1001) / 1000.0f)*1.0f; 
-         training_data[i][1][0] = 1.0f;
-         training_data[i][1][1] = 0.0f;
-      }
-      else
-      {
-         r = 1.0f + ((float)(rand() % 1001) / 1000.0f)*1.0f;
-         training_data[i][1][0] = 0.0f;
-         training_data[i][1][1] = 1.0f;
-      }
-
-      // compute Euclidean coordinates from polar coordinates
-      float rnd_x = cos(theta)*r;
-      float rnd_y = sin(theta)*r;
-      training_data[i][0][0] = rnd_x;
-      training_data[i][0][1] = rnd_y;
-
-   } // for (all training pairs to generate)
-
-
-
-   // 3. MLP training
-   printf("Training with %d training pairs...\n", NR_TRAIN_STEPS);
-   float t[2];
-   for (int trainstep = 0; trainstep < NR_TRAIN_STEPS; trainstep++)
-   {
-      // 3.1 get random training pair
-      int rnd_training_pair_idx = rand() % NR_TRAINING_PAIRS;
-      float rnd_x = training_data[rnd_training_pair_idx][0][0];
-      float rnd_y = training_data[rnd_training_pair_idx][0][1];
-      t[0] = training_data[rnd_training_pair_idx][1][0];
-      t[1] = training_data[rnd_training_pair_idx][1][1];
-      
-      // 3.2 feed the MLP with the input vector      
-      this->all_layers[0]->all_neurons_in_this_layer[0]->out = rnd_x;
-      this->all_layers[0]->all_neurons_in_this_layer[1]->out = rnd_y;
-
-      // 3.3 forward pass
-      this->forward_pass();
-      //this->save_mlp_visualization_as_image("feedforward step");
-
-      // 3.4 backprop pass
-      this->backpropagation_compute_error_signals( t );
-      //this->save_mlp_visualization_as_image("backprop step (compute error signals)");
-
-      this->backpropagation_change_weights();
-      //this->save_mlp_visualization_as_image("backprop step (weights changed)");
-
-      // 3.5 After each 10% of steps trained more, output some information for the user
-      if ((1) && (trainstep % (NR_TRAIN_STEPS/10) == 0))
-      {
-         printf("Number of steps trained: %d\n", trainstep);
-         this->show_min_max_values_per_layer();
-      }
-
-   } // for (all training vectors)
-   printf("Training finished.\n");
-
-
-   // 4. show learned values of all incoming weights of hidden & output neurons
-   this->all_layers[1]->show_incoming_weights(); // show incoming weights of hidden neurons
-   this->all_layers[2]->show_incoming_weights(); // show incoming weights of output neurons
-
-
-   // 5. generate test data   
-   const int NR_TEST_PAIRS = 10000;
-   float test_data[NR_TEST_PAIRS][2][2];
-   for (int i = 0; i < NR_TEST_PAIRS; i++)
-   {
-      float r, theta;
-      theta = ((float)(rand() % 1001) / 1000.0f)*2.0f*(float)M_PI;
-      if (i<NR_TEST_PAIRS / 2)
-      {
-         r = ((float)(rand() % 1001) / 1000.0f)*1.0f;
-         test_data[i][1][0] = 1.0f;
-         test_data[i][1][1] = 0.0f;
-      }
-      else
-      {
-         r = 1.0f + ((float)(rand() % 1001) / 1000.0f)*1.0f;
-         test_data[i][1][0] = 0.0f;
-         test_data[i][1][1] = 1.0f;
-      }
-
-      // compute Euclidean coordinates from polar coordinates
-      float rnd_x = cos(theta)*r;
-      float rnd_y = sin(theta)*r;
-      test_data[i][0][0] = rnd_x;
-      test_data[i][0][1] = rnd_y;
-
-   } // for (all test pairs to generate)
-
-
-   // 6. test the network
-   for (int test = 0; test < 10; test++)
-   {        
-      // 6.1 get random test pair
-      int rnd_test_pair_idx = rand() % NR_TRAINING_PAIRS;
-      float rnd_x = test_data[rnd_test_pair_idx][0][0];
-      float rnd_y = test_data[rnd_test_pair_idx][0][1];
-      float dist_to_origin = sqrt( rnd_x*rnd_x + rnd_y*rnd_y );
-
-      // 3.2 feed the MLP with the input vector      
-      this->all_layers[0]->all_neurons_in_this_layer[0]->out = rnd_x;
-      this->all_layers[0]->all_neurons_in_this_layer[1]->out = rnd_y;
-
-      // 4.3 forward pass
-      this->forward_pass();
-
-      // 4.4 show current values of input and output neurons
-      //     in order to see whether the MLP really learned
-      //     to map input vectors x
-      //     to the same output vectors x
-      //     by the help of the hidden layer neurons
-      printf("\nv=(%f,%f) has distance %.2f from origin\n", rnd_x, rnd_y, dist_to_origin);
-      show_output_values_of_neurons_from_layer(0);
-      show_output_values_of_neurons_from_layer(1);
-      show_output_values_of_neurons_from_layer(2);
-
-      printf("\nPress a key to test the MLP with another input vector v=(x,y)\n");
-      _getch();
-
-   } // for (all tests)
-
-   printf("\n\nUnit Test 'Classification circle dataset' finished.\n");
-   printf("Press a key.\n");
-   _getch();
-
-} // unit_test_classification_circle_dataset
-*/
-
-
-
 
 
 ///

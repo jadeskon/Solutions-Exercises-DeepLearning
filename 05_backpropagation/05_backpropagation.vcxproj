@@ -120,7 +120,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\MNIST\mnist_dataset_reader.cpp" />
     <ClCompile Include="backprop_test.cpp" />
     <ClCompile Include="mlp_oop\mlp_oop.cpp" />
     <ClCompile Include="mlp_oop\neuron.cpp" />
@@ -129,7 +128,6 @@
     <ClCompile Include="mlp_oop\transfer_functions.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\MNIST\mnist_dataset_reader.h" />
     <ClInclude Include="mlp_oop\mlp_oop.h" />
     <ClInclude Include="mlp_oop\neuron.h" />
     <ClInclude Include="mlp_oop\neuron_connection.h" />

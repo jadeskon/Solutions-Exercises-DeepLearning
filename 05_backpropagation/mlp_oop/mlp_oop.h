@@ -49,8 +49,6 @@ class mlp_oop
 
       void                        unit_test_identity();                                               
       void                        unit_test_regression();
-      //void                        unit_test_data_compression();
-      //void                        unit_test_classification_circle_dataset();                                         
       
       float                       get_sum_of_output_values();
 

@@ -16,9 +16,6 @@
     <Filter Include="MLP OOP">
       <UniqueIdentifier>{e32164e4-f4f8-42f3-8ef6-6e61cb0a3200}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MNIST dataset reader">
-      <UniqueIdentifier>{2b643416-6c98-4d21-9ea6-251189da1487}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="backprop_test.cpp">
@@ -36,9 +33,6 @@
     <ClCompile Include="mlp_oop\neuron_layer.cpp">
       <Filter>MLP OOP</Filter>
     </ClCompile>
-    <ClCompile Include="..\MNIST\mnist_dataset_reader.cpp">
-      <Filter>MNIST dataset reader</Filter>
-    </ClCompile>
     <ClCompile Include="mlp_oop\transfer_functions.cpp">
       <Filter>MLP OOP</Filter>
     </ClCompile>
@@ -55,9 +49,6 @@
     </ClInclude>
     <ClInclude Include="mlp_oop\neuron_layer.h">
       <Filter>MLP OOP</Filter>
-    </ClInclude>
-    <ClInclude Include="..\MNIST\mnist_dataset_reader.h">
-      <Filter>MNIST dataset reader</Filter>
     </ClInclude>
     <ClInclude Include="mlp_oop\transfer_functions.h">
       <Filter>MLP OOP</Filter>
