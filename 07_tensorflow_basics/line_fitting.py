@@ -12,8 +12,10 @@
 import tensorflow as tf
 import numpy as np
  
+# 1. generate training data
  
-# 1.1 create 1D array with 100 random numbers drawn uniformly from [0,1)
+# 1.1 create 1D array with 100 random numbers drawn uniformly
+#     from [0,1)
 x_data = np.random.rand(100)
 print("\nx_data:",x_data)
 print("data type:", type(x_data))
@@ -28,7 +30,7 @@ y_data = x_data * 1.2345 + 0.6789
 # These parameters are called variables in TF.
  
  
-# 2. We initialize them with a random W and b=0
+# 2. Create & initialize TF variables randomly
 W = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
 b = tf.Variable(tf.zeros([1]))
 y = W * x_data + b
@@ -76,3 +78,6 @@ for step in range(201):
     # 8.2 From time to time, print the current value of W and b
     if step % 10 == 0:
         print(step, sess.run(W), sess.run(b))
+
+print("Training finished.\n")
+

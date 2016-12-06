@@ -9,7 +9,8 @@
  
 import tensorflow as tf
  
-# 1. we use the input_data class in order to import the MNIST data
+# 1. we use the tensorflow.examples.tutorials.mnist class
+#    in order to access the MNIST data
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 print("\nmnist has type", type(mnist))
@@ -19,19 +20,27 @@ print("There are ", mnist.test.num_examples, " test examples available.")
  
 # 2. set learning parameters
 learn_rate      = 0.05
-nr_train_epochs = 40
+nr_train_epochs = 20
 batch_size      = 100
  
  
 # 3. configure network parameters
 n_hidden_1 = 80  # nr of neurons in 1st hidden layer
 n_hidden_2 = 20  # nr of neurons in 2nd hidden layer
-n_input    = 784 # MNIST data input size (one input image has dimension 28x28 pixels, thus 784 input pixels)
+n_input    = 784 # MNIST data input size:
+                 # one input image has dimension 28x28 pixels,
+                 # thus 784 input pixels
 n_classes  =  10 # MNIST total classes (0-9 digits)
  
  
 # 4. define TensorFlow input placeholders
-#    A placeholder is simply a variable that we will assign data to at a later date.
+#    A placeholder is simply a variable that we
+#    will assign data to at a later date.
+#
+#    input x and output y will be 2D matrices
+#    1st dimension of x is e.g. batch size,
+#    2nd dimension of x is size of a single input image/vector
+#
 x = tf.placeholder("float", [None, n_input])
 y = tf.placeholder("float", [None, n_classes])
 #print("type of x is ", type(x))
@@ -39,12 +48,16 @@ y = tf.placeholder("float", [None, n_classes])
  
  
 # 5. helper function to create a 3 layer MLP:
-#      input-layer --> hidden layer #1 --> hidden layer #2 --> output layer
+#      input-layer -->
+#       hidden layer #1 -->
+#        hidden layer #2 -->
+#         output layer
 def multilayer_perceptron(x, weights, biases):
  
     # hidden layer #1 with RELU
     layer_1 = tf.add(tf.matmul(x, weights['h1']), biases['b1'])
     layer_1 = tf.nn.relu(layer_1)
+    print("type of layer_1 is = ", type(layer_1))
      
     # hidden layer #2 with RELU
     layer_2 = tf.add(tf.matmul(layer_1, weights['h2']), biases['b2'])
@@ -76,7 +89,24 @@ print("type of my_mlp is ", type(my_mlp))
  
  
 # 8. define error function (generate an error op)
+#    
+#    1. see documentation for that TF function:
+#       https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/api_docs/python/functions_and_classes/shard7/tf.nn.softmax_cross_entropy_with_logits.md
+#    
+#    2. "If you want to do optimization to minimize the cross entropy,
+#        AND you're softmaxing after your last layer, you should use
+#        tf.nn.softmax_cross_entropy_with_logits"
+#        see http://stackoverflow.com/questions/34240703/difference-between-tensorflow-tf-nn-softmax-and-tf-nn-softmax-cross-entropy-with 
+#
+#    3. "The logits are the unnormalized log probabilities"
+#       http://stackoverflow.com/questions/34240703/difference-between-tensorflow-tf-nn-softmax-and-tf-nn-softmax-cross-entropy-with 
+#
+#
+# Uses the cross-entropy error between the actual output values
+# (my_mlp, output values are first softmax normalized) and the
+# desired output values
 error = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(my_mlp, y))
+
  
  
 # 9. define optimizer
