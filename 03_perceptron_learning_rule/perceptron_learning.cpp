@@ -195,7 +195,8 @@ int main()
    //srand(140376);
 
    // 1. read in MNIST data
-   string path_to_extracted_mnist_files = "V:\\01_job\\00_vorlesungen_meine\\17_deep_learning_ws1617\\07_datasets\\01_mnist\\extracted";
+   string path_to_extracted_mnist_files =
+    "V:\\01_job\\00_vorlesungen_meine\\2016_WS_deep_learning\\07_datasets\\01_mnist\\extracted";
    my_reader = new mnist_dataset_reader(path_to_extracted_mnist_files);
 
    // 2. show me some example images of the training data from the MNIST data set
