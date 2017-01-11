@@ -91,23 +91,44 @@ int main()
       Mat roi(frame_gray, roi_rect);
       imshow("roi", roi);
       //printf("roi has shape %d x %d:\n", roi.size().width, roi.size().height);
+
+      // From: http://docs.opencv.org/3.1.0/d3/d63/classcv_1_1Mat.html#afd5159655a12555b5c2725c750893a46
+      // double cv::Mat::dot 	( 	InputArray  	m	) 	const
+      //    Computes a dot - product of two vectors.
+      //    The method computes a dot - product of two matrices.
+      //    If the matrices are not single - column or single - row vectors,
+      //    the top - to - bottom left - to - right scan ordering is used to
+      //    treat them as 1D vectors.
+      //    The vectors must have the same size and type.
+      //    If the matrices have more than one channel,
+      //    the dot products from all the channels are summed together.
+
+      // compute response of current filter F
+      // to input patch x (roi) by computing the scalar product: o_j = F*x
       double o_j = roi.dot( F );
       imshow("F", F);
 
-      // adapt the filter according to Hebb's rule
+      // adapt the filter according to Hebb's rule:
+      // Delta w_ij = eta * o_i * o_j
       for (int y = 0; y<FS; y++)
          for (int x = 0; x<FS; x++)
          {
-            // get old filter value
+            // get old filter value w_ij
             float old_filter_value = F.at<float>(y, x);
 
+            // get input o_i
             float o_i = roi.at<float>(y,x);
             
             float new_filter_value;
 
             // Hebbs' rule
-            new_filter_value = old_filter_value + LEARN_RATE * o_i * (float)o_j;
+            //new_filter_value = old_filter_value + LEARN_RATE * o_i * (float)o_j;
 
+            float N;
+            N = (float) frame_counter;
+            //N = 100.0f;
+            new_filter_value = (N*old_filter_value + o_i) / (N+1.0f);
+            
             if (new_filter_value>1.0f)
                new_filter_value = 1.0f;
 
